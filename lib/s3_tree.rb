@@ -4,7 +4,7 @@ require 's3_tree/file'
 
 module S3Tree
   def self.tree(bucket_name,path='')
-    path = path + '/' if path.present?
+    path = URI.decode(path).gsub('+', ' ') if path.present?
     s3 = Aws::S3::Resource.new
     bucket = s3.bucket(bucket_name)
     S3Tree::Directory.new(bucket,path).children

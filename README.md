@@ -25,23 +25,25 @@ Or install it yourself as:
  Currently this gem support only 'aws-sdk' version 2. See documentation for [aws-sdk-ruby](https://github.com/aws/aws-sdk-ruby).
 ## Syntax
 ```ruby
-     S3Tree.tree(bucket_object,path_to_directory)
+     S3Tree.tree(bucket_name,path_to_directory)
  ```
  Leave `path` option blank for get all listing 
+ 
 ## Usage
 ```ruby
 require 's3_tree'
   
 class ReportsController < ApplicationController
   def index
-    s3 = Aws::S3::Resource.new
-    bucket = s3.bucket('g8way-files')
-    @tree = S3Tree.tree(bucket,'')
+    params[:path] ||= ''
+    @tree = S3Tree.tree('bucket_name',params[:path])
   end
 end
- ```
+```
+
  `index.html.erb`
- ```html
+ 
+ ```ruby
   <table>
     <thead>
       <tr>
